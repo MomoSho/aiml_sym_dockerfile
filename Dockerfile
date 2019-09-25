@@ -6,8 +6,8 @@
 #https://github.com/jupyter/docker-stacks/blob/master/datascience-notebook/Dockerfile
 
 #ARG TAG=debugging-0.0.0
-ARG GIT_COMMIT=unspecified
-LABEL git_commit=$GIT_COMMIT
+#ARG GIT_COMMIT=unspecified
+#LABEL git_commit=$GIT_COMMIT
 
 #FROM osgeo/proj
 
