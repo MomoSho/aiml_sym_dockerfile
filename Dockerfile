@@ -30,7 +30,7 @@ FROM $BASE_CONTAINER
 #    git checkout aiml2019_branch && \
 
 RUN conda install -c conda-forge proj4 -y 
-RUN conda install -c anaconda basemap
+RUN conda install -c anaconda basemap -y
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
 #RUN pip install -U pip && \
