@@ -44,7 +44,7 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
 
 RUN apt-get -y update && \
     apt-get install -y libqt4-dev cmake xvfb
-RUN conda install -c conda-forge pyside=1.2.4 && \
+RUN conda install -c conda-forge pyside -y && \
     git clone https://github.com/sharppy/SHARPpy.git && \
     cd SHARPpy  && \
     git pull origin master  && \
