@@ -37,8 +37,8 @@ RUN conda install -c anaconda basemap -y
 #    pip install ambhas && \
 #    cd .. 
      
-RUN git clone https://github.com/tkrajina/srtm.py && \
-    cd srtm && \
+RUN git clone https://github.com/tkrajina/srtm.py.git && \
+    cd srtm.py && \
     python setup.py install && \
     cd .. 
 
