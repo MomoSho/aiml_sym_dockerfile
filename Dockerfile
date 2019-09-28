@@ -29,14 +29,17 @@ FROM $BASE_CONTAINER
 #    cd GewitterGefahr && \
 #    git checkout aiml2019_branch && \
 
+# PROJ is a depenedency for Basemap 
 RUN conda install -c conda-forge proj4 -y 
+# Basemap is a dependency for GewitterGefahr/GeneralExam
 RUN conda install -c anaconda basemap -y
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
-#RUN pip install -U pip && \
-#    pip install ambhas && \
-#    cd .. 
-     
+RUN pip install -U pip && \
+    pip install ambhas && \
+    cd .. 
+
+# SRTM is a dependency for GewitterGefahr
 RUN git clone https://github.com/tkrajina/srtm.py.git && \
     cd srtm.py && \
     python setup.py install && \
@@ -44,15 +47,18 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
 
 RUN apt-get -y update && \
     apt-get install -y libqt4-dev cmake xvfb
-RUN conda install -c conda-forge pyside -y && \
+#RUN conda install -c conda-forge pyside -y && \
+RUN pip install pyside && \
     git clone https://github.com/sharppy/SHARPpy.git && \
     cd SHARPpy  && \
     git pull origin master  && \
     python setup.py install  && \
     cd ..
 
+# Activate conda environment for Basemap
 RUN source activate base
 
+# UPDATE GewitterGefahr installation with aiml2019_branch
 RUN rm -rf GewitterGefahr && \
     git clone --single-branch --branch aiml2019_branch https://github.com/thunderhoser/GewitterGefahr && \
     cd GewitterGefahr && \
@@ -67,10 +73,12 @@ RUN git clone https://github.com/thunderhoser/GeneralExam && \
 
 
 RUN pip install nbgitpuller
-RUN pip install nbgrader
-RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
-RUN jupyter nbextension enable --sys-prefix --py nbgrader
-RUN jupyter serverextension enable --sys-prefix --py nbgrader
+
+# Install nbgrader and enable the extension
+#RUN pip install nbgrader
+#RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
+#RUN jupyter nbextension enable --sys-prefix --py nbgrader
+#RUN jupyter serverextension enable --sys-prefix --py nbgrader
 
 # Set up shared data and notebook folders
 #RUN sudo mkdir -p /srv/shared/data
