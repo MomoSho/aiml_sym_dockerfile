@@ -17,6 +17,11 @@ ARG BASE_CONTAINER=pupster90/io
 #ARG BASE_CONTAINER=momosho/aiml
 FROM $BASE_CONTAINER
 
+
+RUN apt-get -y update
+RUN apt-get install python3.3
+
+
 # Install Tensorflow
 #RUN conda install --quiet --yes \
 #    'tensorflow=1.13*' \
@@ -45,8 +50,7 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
     python setup.py install && \
     cd .. 
 
-RUN apt-get -y update && \
-    apt-get install -y libqt4-dev cmake xvfb
+RUN apt-get install -y libqt4-dev cmake xvfb
 #RUN conda install -c conda-forge pyside -y && \
 RUN pip install pyside && \
     git clone https://github.com/sharppy/SHARPpy.git && \
