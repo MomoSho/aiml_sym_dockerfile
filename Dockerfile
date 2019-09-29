@@ -17,11 +17,6 @@
 ARG BASE_CONTAINER=pupster90/io
 FROM $BASE_CONTAINER
 
-
-RUN apt-get -y update
-RUN apt-get install python3.3
-
-
 #RUN git clone https://github.com/thunderhoser/GewitterGefahr && \
 #    cd GewitterGefahr && \
 #    git checkout aiml2019_branch && \
@@ -41,6 +36,8 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
     python setup.py install && \
     cd .. 
 
+RUN apt-get -y update
+RUN apt-get install python3.3
 RUN apt-get install -y libqt4-dev cmake xvfb
 #RUN conda install -c conda-forge pyside -y && \
 RUN pip install pyside && \
@@ -54,8 +51,7 @@ RUN pip install pyside && \
 RUN source activate base
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
-RUN rm -rf GewitterGefahr && \
-    git clone --single-branch --branch aiml2019_branch https://github.com/thunderhoser/GewitterGefahr && \
+RUN git clone --single-branch --branch aiml2019_branch https://github.com/thunderhoser/GewitterGefahr && \
     cd GewitterGefahr && \
     python setup.py install && \
     cd ..
