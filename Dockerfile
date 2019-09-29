@@ -13,22 +13,14 @@
 
 #ARG BASE_CONTAINER=jupyter/scipy-notebook
 #ARG BASE_CONTAINER=jupyter/tensorflow-notebook
-ARG BASE_CONTAINER=pupster90/io
 #ARG BASE_CONTAINER=momosho/aiml
+ARG BASE_CONTAINER=pupster90/io
 FROM $BASE_CONTAINER
 
 
 RUN apt-get -y update
 RUN apt-get install python3.3
 
-
-# Install Tensorflow
-#RUN conda install --quiet --yes \
-#    'tensorflow=1.13*' \
-#    'keras=2.2*' && \
-#    conda clean --all -f -y && \
-#    fix-permissions $CONDA_DIR && \
-#    fix-permissions /home/$NB_USER
 
 #RUN git clone https://github.com/thunderhoser/GewitterGefahr && \
 #    cd GewitterGefahr && \
@@ -41,8 +33,7 @@ RUN conda install -c anaconda basemap -y
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
 RUN pip install -U pip && \
-    pip install ambhas && \
-    cd .. 
+    pip install ambhas
 
 # SRTM is a dependency for GewitterGefahr
 RUN git clone https://github.com/tkrajina/srtm.py.git && \
@@ -75,23 +66,11 @@ RUN git clone https://github.com/thunderhoser/GeneralExam && \
     python setup.py install && \ 
     cd ..
 
-
 RUN pip install nbgitpuller
 
-# Install nbgrader and enable the extension
-#RUN pip install nbgrader
-#RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
-#RUN jupyter nbextension enable --sys-prefix --py nbgrader
-#RUN jupyter serverextension enable --sys-prefix --py nbgrader
-
-# Set up shared data and notebook folders
-#RUN sudo mkdir -p /srv/shared/data
-#RUN sudo mkdir -p /srv/shared/nb
-#RUN download_data.sh /srv/shared/
 
 ######################################################################
 # Install git library dependencies
 #mpl_toolkits matplotlib basemap
 #RUN sudo apt-get install libgeos-c1v5 libgeos-dev
 #RUN pip install --user git+https://github.com/matplotlib/basemap.git
-
