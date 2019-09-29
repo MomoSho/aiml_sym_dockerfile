@@ -40,7 +40,8 @@ RUN apt-get -y update
 RUN apt-get install -y libqt4-dev cmake xvfb
 
 RUN apt-get install -y python3.3
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.3
+RUN python3 --version
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.3 1
 RUN update-alternatives --set python /usr/bin/python3.3
 RUN python3 --version
 #RUN conda install -c conda-forge pyside -y && \
