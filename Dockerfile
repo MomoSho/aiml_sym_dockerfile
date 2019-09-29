@@ -37,7 +37,7 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
     cd .. 
 
 RUN apt-get -y update
-RUN apt-get install python3.3
+RUN apt-get install -y python3.3
 RUN apt-get install -y libqt4-dev cmake xvfb
 #RUN conda install -c conda-forge pyside -y && \
 RUN pip install pyside && \
