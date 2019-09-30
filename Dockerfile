@@ -39,21 +39,21 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
 RUN apt-get -y update
 RUN apt-get install -y libqt4-dev cmake xvfb
 
-RUN apt-get install -y python3.3
-RUN python --version
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.3 1
-RUN update-alternatives --set python /usr/bin/python
-RUN python --version
+#RUN apt-get install -y python3.3
+#RUN python --version
+#RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.3 1
+#RUN update-alternatives --set python /usr/bin/python
+#RUN python --version
 #RUN conda install -c conda-forge pyside -y && \
-RUN python -m pip install pyside && \
-    git clone https://github.com/sharppy/SHARPpy.git && \
-    cd SHARPpy  && \
-    git pull origin master  && \
-    python setup.py install  && \
-    cd ..
+#RUN python -m pip install pyside && \
+#RUN git clone https://github.com/sharppy/SHARPpy.git && \
+#    cd SHARPpy  && \
+#    git pull origin master  && \
+#    python setup.py install  && \
+#    cd ..
 
 # Activate conda environment for Basemap
-RUN source activate base
+RUN conda activate base
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
 RUN git clone --single-branch --branch aiml2019_branch https://github.com/thunderhoser/GewitterGefahr && \
