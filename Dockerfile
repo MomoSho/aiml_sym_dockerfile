@@ -9,6 +9,24 @@ FROM $BASE_CONTAINER
 
 RUN apt-get -y update
 
+
+######################################################################
+# Graphviz and Dot 
+# download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
+RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git
+RUN mv aiml_sym_dockerfile/graphviz.tar.gz .
+
+# untar 
+RUN tar -xvf graphviz.tar.gz
+RUN cd graphviz-2.40.1/
+
+# build
+RUN make 
+RUN make install
+RUN cd ..
+
+
+######################################################################
 # PROJ is a depenedency for Basemap 
 RUN conda install -c conda-forge proj4 -y 
 # Basemap is a dependency for GewitterGefahr/GeneralExam
@@ -53,6 +71,7 @@ RUN git clone --single-branch --branch era5_branch https://github.com/thunderhos
 
 RUN pip install nbgitpuller
 
+######################################################################
 # Install nbgrader and enable the extension
 RUN pip install nbgrader
 RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
@@ -63,18 +82,6 @@ RUN jupyter serverextension enable --sys-prefix --py nbgrader
 #RUN sudo mkdir -p /srv/shared/data
 #RUN sudo mkdir -p /srv/shared/nb
 #RUN download_data.sh /srv/shared/
-
-######################################################################
-# Graphviz and Dot 
-# download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
-# untar 
-RUN tar -xvf graphviz.tar.gz
-RUN cd graphviz-2.40.1/
-
-# build
-RUN make 
-RUN make install
-RUN cd ..
 
 ######################################################################
 # Install git library dependencies
