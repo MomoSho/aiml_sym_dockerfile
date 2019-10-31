@@ -21,8 +21,7 @@ RUN tar -xvf graphviz.tar.gz
 RUN cd graphviz-2.40.1/
 
 # build
-RUN make 
-RUN make install
+RUN make && make install
 RUN cd ..
 
 
