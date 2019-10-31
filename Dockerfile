@@ -1,14 +1,3 @@
-#RESOURCES
-#https://hub.docker.com/r/jupyter/tensorflow-notebook/tags/
-#https://zero-to-jupyterhub.readthedocs.io/en/latest/index.html#customization-guide
-#https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
-#https://hub.docker.com/r/jupyter/tensorflow-notebook/dockerfile
-#https://github.com/jupyter/docker-stacks/blob/master/datascience-notebook/Dockerfile
-
-#ARG TAG=debugging-0.0.0
-#ARG GIT_COMMIT=unspecified
-#LABEL git_commit=$GIT_COMMIT
-
 #FROM osgeo/proj
 
 #ARG BASE_CONTAINER=jupyter/scipy-notebook
@@ -17,16 +6,20 @@
 ARG BASE_CONTAINER=pupster90/io
 FROM $BASE_CONTAINER
 
-#RUN git clone https://github.com/thunderhoser/GewitterGefahr && \
-#    cd GewitterGefahr && \
-#    git checkout aiml2019_branch && \
+
+RUN apt-get -y update
 
 # PROJ is a depenedency for Basemap 
 RUN conda install -c conda-forge proj4 -y 
 # Basemap is a dependency for GewitterGefahr/GeneralExam
 RUN conda install -c anaconda basemap -y
+# Activate conda environment for Basemap
+#RUN source activate base
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
+#RUN git clone https://github.com/thunderhoser/GewitterGefahr && \
+#    cd GewitterGefahr && \
+#    git checkout aiml2019_branch && \
 RUN pip install -U pip && \
     pip install ambhas
 
@@ -36,24 +29,15 @@ RUN git clone https://github.com/tkrajina/srtm.py.git && \
     python setup.py install && \
     cd .. 
 
-RUN apt-get -y update
 RUN apt-get install -y libqt4-dev cmake xvfb
-
 #RUN apt-get install -y python3.3
-#RUN python --version
-#RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.3 1
-#RUN update-alternatives --set python /usr/bin/python
-#RUN python --version
 #RUN conda install -c conda-forge pyside -y && \
-#RUN python -m pip install pyside && \
-#RUN git clone https://github.com/sharppy/SHARPpy.git && \
+#RUN pip install pyside && \
+#    git clone https://github.com/sharppy/SHARPpy.git && \
 #    cd SHARPpy  && \
 #    git pull origin master  && \
 #    python setup.py install  && \
 #    cd ..
-
-# Activate conda environment for Basemap
-RUN conda activate base
 
 # UPDATE GewitterGefahr installation with aiml2019_branch
 RUN git clone --single-branch --branch aiml2019_branch https://github.com/thunderhoser/GewitterGefahr && \
@@ -61,17 +45,38 @@ RUN git clone --single-branch --branch aiml2019_branch https://github.com/thunde
     python setup.py install && \
     cd ..
 
-RUN git clone https://github.com/thunderhoser/GeneralExam && \
+# Install Ryan's GeneralExam with era5_branch
+RUN git clone --single-branch --branch era5_branch https://github.com/thunderhoser/GeneralExam && \
     cd GeneralExam && \
-    git checkout era5_branch && \
     python setup.py install && \ 
     cd ..
 
 RUN pip install nbgitpuller
 
+# Install nbgrader and enable the extension
+RUN pip install nbgrader
+RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
+RUN jupyter nbextension enable --sys-prefix --py nbgrader
+RUN jupyter serverextension enable --sys-prefix --py nbgrader
+
+# Set up shared data and notebook folders
+#RUN sudo mkdir -p /srv/shared/data
+#RUN sudo mkdir -p /srv/shared/nb
+#RUN download_data.sh /srv/shared/
+
+######################################################################
+# Graphviz and Dot 
+# download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
+# untar 
+RUN tar -xvf graphviz.tar.gz
+RUN cd graphviz-2.40.1/
+
+# build
+RUN make 
+RUN make install
+RUN cd ..
 
 ######################################################################
 # Install git library dependencies
-#mpl_toolkits matplotlib basemap
 #RUN sudo apt-get install libgeos-c1v5 libgeos-dev
 #RUN pip install --user git+https://github.com/matplotlib/basemap.git
