@@ -13,12 +13,12 @@ RUN apt-get -y update
 ######################################################################
 # Graphviz and Dot 
 # download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
-RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git
-RUN mv aiml_sym_dockerfile/graphviz.tar.gz .
+#RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git
+#RUN mv aiml_sym_dockerfile/graphviz.tar.gz .
 # untar 
-RUN tar -xvf graphviz.tar.gz
-RUN cd graphviz-2.40.1/ && make && make install
-RUN cd ..
+#RUN tar -xvf graphviz.tar.gz && ls
+#RUN cd graphviz-2.40.1/ && make && make install
+#RUN cd ..
 #FROM alpine:3.8 RUN apk add --no-cache --update graphviz ttf-freefont
 
 
@@ -73,6 +73,10 @@ RUN pip install nbgrader
 RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
 RUN jupyter nbextension enable --sys-prefix --py nbgrader
 RUN jupyter serverextension enable --sys-prefix --py nbgrader
+
+
+######################################################################
+FROM pvalsecc/docker-graphviz
 
 # Set up shared data and notebook folders
 #RUN sudo mkdir -p /srv/shared/data
