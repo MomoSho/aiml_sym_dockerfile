@@ -17,9 +17,13 @@ RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git && \
 	mv aiml_sym_dockerfile/graphviz.tar.gz . && \
 	tar -xvf graphviz.tar.gz && \
 	ls && \
-	cd graphviz-2.40.1/ && \
-	make && make install && \
-	cd ..
+#	cd graphviz-2.40.1/ && \
+#	make && make install && \
+#	cd ..
+
+WORKDIR graphviz-2.40.1/
+RUN make && make install
+
 #FROM alpine:3.8 RUN apk add --no-cache --update graphviz ttf-freefont
 
 
