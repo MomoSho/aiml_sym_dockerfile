@@ -23,8 +23,7 @@ RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git && \
 #	cd ..
 
 WORKDIR /home/jovyan/graphviz-2.40.1/
-RUN cd graphviz-2.40.1/ && \
-    ls &&\
+RUN ls &&\
     pwd && \
     make && \
     make install
