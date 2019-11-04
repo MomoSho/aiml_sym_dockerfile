@@ -7,26 +7,23 @@ ARG BASE_CONTAINER=momosho/aiml
 FROM $BASE_CONTAINER
 
 
-RUN apt-get -y update
+#RUN apt-get -y update
 
 
 ######################################################################
 # Graphviz and Dot 
-# download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
-RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git && \
-	mv aiml_sym_dockerfile/graphviz.tar.gz . && \
-	tar -xvf graphviz.tar.gz && \
-	ls && \
-    pwd
-#	cd graphviz-2.40.1/ && \
-#	make && make install && \
-#	cd ..
+RUN conda install -c anaconda graphviz -y
 
-WORKDIR /home/jovyan/graphviz-2.40.1/
-RUN ls &&\
-    pwd && \
-    make && \
-    make install
+# download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
+#RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git && \
+#	mv aiml_sym_dockerfile/graphviz.tar.gz . && \
+#	tar -xvf graphviz.tar.gz && \
+
+#WORKDIR /home/jovyan/graphviz-2.40.1/
+#RUN ls &&\
+#    pwd && \
+#    make && \
+#    make install
 
 #FROM alpine:3.8 
 #RUN apk add --no-cache --update graphviz ttf-freefont
