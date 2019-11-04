@@ -17,6 +17,7 @@ RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git && \
 	mv aiml_sym_dockerfile/graphviz.tar.gz . && \
 	tar -xvf graphviz.tar.gz && \
 	ls && \
+    pwd
 #	cd graphviz-2.40.1/ && \
 #	make && make install && \
 #	cd ..
