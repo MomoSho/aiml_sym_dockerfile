@@ -7,27 +7,9 @@ ARG BASE_CONTAINER=momosho/aiml
 FROM $BASE_CONTAINER
 
 
-#RUN apt-get -y update
-
-
 ######################################################################
 # Graphviz and Dot 
 RUN conda install -c anaconda graphviz -y
-
-# download source https://graphviz.gitlab.io/_pages/Download/Download_source.html
-#RUN git clone https://github.com/MomoSho/aiml_sym_dockerfile.git && \
-#	mv aiml_sym_dockerfile/graphviz.tar.gz . && \
-#	tar -xvf graphviz.tar.gz && \
-
-#WORKDIR /home/jovyan/graphviz-2.40.1/
-#RUN ls &&\
-#    pwd && \
-#    make && \
-#    make install
-
-#FROM alpine:3.8 
-#RUN apk add --no-cache --update graphviz ttf-freefont
-
 
 ######################################################################
 # Install nbgitpuller for syncing git files
@@ -40,6 +22,9 @@ RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
 RUN jupyter nbextension enable --sys-prefix --py nbgrader
 RUN jupyter serverextension enable --sys-prefix --py nbgrader
 
+# Create exchange directory
+USER root
+RUN mkdir -p /srv/nbgrader/exchange && fix-permissions /srv/nbgrader/exchange
 
 ######################################################################
 #FROM pvalsecc/docker-graphviz
