@@ -1,0 +1,21 @@
+#FROM osgeo/proj
+
+#ARG BASE_CONTAINER=jupyter/scipy-notebook
+#ARG BASE_CONTAINER=jupyter/tensorflow-notebook
+ARG BASE_CONTAINER=momosho/aiml
+#ARG BASE_CONTAINER=pupster90/io
+FROM $BASE_CONTAINER
+
+
+######################################################################
+# Graphviz image
+FROM pvalsecc/docker-graphviz
+
+######################################################################
+# Add Live slideshows with RISE
+RUN conda install -c damianavila82 rise
+
+# Set up shared data and notebook folders
+#RUN sudo mkdir -p /srv/shared/data
+#RUN sudo mkdir -p /srv/shared/nb
+#RUN download_data.sh /srv/shared/
